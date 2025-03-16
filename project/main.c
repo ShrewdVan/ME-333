@@ -28,7 +28,9 @@ int main()
     // There are two LED lights, green and yellow. Green led basically doesn't do something.
     //      I'm just too lazy to change that. Yellow led is the problem LED. When user type a char 
     //      with no matching feature. the yellow led would bright for 1 sec.
-    NU32_LED1 = 1; // turn off the LEDs
+
+    // turn off the LEDs at the beginning
+    NU32_LED1 = 1; 
     NU32_LED2 = 1;
 
     // StartUp function assembly line
