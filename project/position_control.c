@@ -24,7 +24,7 @@ static volatile int Track_count;
 volatile int e = 0;
 volatile int E_dot = 0;
 
-//ISR function for the 5 Hz position control loop
+//ISR function for the 200 Hz position control loop
 void __ISR(_TIMER_4_VECTOR, IPL5SOFT) Timer4ISR(void){
     IFS0bits.T4IF = 0;
     switch (get_mode()){
@@ -92,7 +92,7 @@ void __ISR(_TIMER_4_VECTOR, IPL5SOFT) Timer4ISR(void){
 
 // Startup function for the position control loop
 void position_control_Startup(){
-    //Timer 4 for a 5kHz ISR in current control loop
+    //Timer 4 for a 200Hz ISR in current control loop
     T3CONbits.TCKPS = 0;
     PR3 = 239999;
     TMR4 = 0;
