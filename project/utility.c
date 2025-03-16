@@ -1,12 +1,15 @@
+// This code is used for storing mode related stuff. There are totally 5 mode, IDLE, PWM, ITEST, HOLD, and TRACK
 # include "utility.h"
 
-
+// "mode" is a static mode, and can only be queried by using the get_mode() function listed below.
 static volatile enum mode_t mode;
 
+// Function created for other c file to query the current mode
 enum mode_t get_mode(){
     return mode;
 }
 
+// Function used to send info to the python, telling the user with the showm str
 void print_mode() {
     char result[70];
 
@@ -34,6 +37,7 @@ void print_mode() {
     }
 }
 
+// Function used to switch the mode
 void set_mode(enum mode_t new_mode) {
     mode = new_mode;
 }
