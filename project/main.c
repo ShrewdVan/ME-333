@@ -27,7 +27,7 @@ int main()
     char buffer[BUF_SIZE];
     // There are two LED lights, green and yellow. Green led basically doesn't do something.
     //      I'm just too lazy to change that. Yellow led is the problem LED. When user type a char 
-    //      with no matching feacture. the yellow led would bright for 1 sec.
+    //      with no matching feature. the yellow led would bright for 1 sec.
     NU32_LED1 = 1; // turn off the LEDs
     NU32_LED2 = 1;
 
