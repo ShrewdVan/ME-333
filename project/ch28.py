@@ -12,7 +12,7 @@ ser = serial.Serial('/dev/tty.usbserial-1410',230400)
 print('Opening port: ')
 print(ser.name)
 
-
+# plot function for the Itest, with vertical label and title changed using "current" stuff
 def read_plot_matrix():
     n_str = ser.read_until(b'\n');  # get the number of data points to receive
     n_int = int(n_str) # turn it into an int
@@ -38,6 +38,7 @@ def read_plot_matrix():
     plt.xlabel('index')
     plt.show()
 
+# plot function for the TRACK, with vertical label and title changed using "angle" stuff
 def read_plot_matrix_Track():
     n_str = ser.read_until(b'\n');  # get the number of data points to receive
     n_int = int(n_str) # turn it into an int
@@ -85,6 +86,7 @@ while not has_quit:
     # take the appropriate action
     # there is no switch() in python, using if elif instead
 
+    # Read the current sensor in ADC count
     if (selection == 'a'):
         ser.reset_input_buffer()
 
@@ -92,7 +94,7 @@ while not has_quit:
         n_int = int(n_str) # turn it into an int
         print('Current in ADC count: ' + str(n_int) + '\n') # print it to the screen   
     
-    
+    # Read current sensor in mA count
     elif (selection == 'b'):
         ser.reset_input_buffer()
 
@@ -100,7 +102,7 @@ while not has_quit:
         n_int = float(n_str) # turn it into an int
         print('Current in mA count: ' + str(n_int) + '\n') # print it to the screen
     
-    
+    # Read the Encoder counts
     elif (selection == 'c'):
         ser.reset_input_buffer()
 
@@ -108,7 +110,7 @@ while not has_quit:
         n_int = int(n_str)
         print('Encoder counts: ' + str(n_int) + '\n')
     
-    
+    # Read the Encoder count in degree
     elif (selection == 'd'):
         ser.reset_input_buffer()
 
@@ -116,13 +118,13 @@ while not has_quit:
         n_int = float(n_str) # turn it into an int
         print('Encoder Degree: ' + str(n_int) + '\n') # print it to the screen
     
-    
+    # Reset encoder count
     elif (selection == 'e'):
         ser.reset_input_buffer()
 
         print("Encoder count has been reset")
     
-    
+    # Set motor speed with PWM, positive for counter-clockwise and negative for clockwise
     elif (selection == 'f'):
         ser.reset_input_buffer()
 
@@ -131,7 +133,7 @@ while not has_quit:
         n_int = int(n_str)
         ser.write((str(n_int)+'\n').encode())
    
-   
+    #  Change the Current PI control gain parameters
     elif (selection == 'g'):
         ser.reset_input_buffer()
 
@@ -148,7 +150,7 @@ while not has_quit:
 
         print("Complete adjusting current control error gain")
 
-   
+    # Get the Current PI control gain parameters
     elif (selection == 'h'):
         ser.reset_input_buffer()
 
@@ -158,7 +160,8 @@ while not has_quit:
         k_i = float(n_str)
         print("Kp(current): " + str(k_p) + "\n")
         print("Ki(current): " + str(k_i) + "\n")
-
+        
+    # Change the Position PID control gain parameters
     elif (selection == 'i'):
         ser.reset_input_buffer()
 
@@ -180,6 +183,7 @@ while not has_quit:
 
         print("Complete adjusting position control error gain")
 
+    # Get the Position PID control gain parameters
     elif (selection == 'j'):
         ser.reset_input_buffer()
 
@@ -193,10 +197,12 @@ while not has_quit:
         print("Ki(Position): " + str(k_i) + "\n")
         print("Kd(Position): " + str(k_d) + "\n")
 
+    # Itest Mode
     elif (selection == 'k'):  
 
         read_plot_matrix()    
 
+    # Go to desired deg and hold
     elif (selection == 'l'):
         ser.reset_input_buffer()
 
@@ -205,6 +211,7 @@ while not has_quit:
         ser.write((str(n_float)+'\n').encode())
         n_str = ser.read_until(b'\n')
 
+    # Load the Cubic Trajectory
     elif (selection == 'm'):
         ser.reset_input_buffer()
 
@@ -222,6 +229,7 @@ while not has_quit:
         n_str = ser.read_until(b'\n').decode()
         print('Complete Loading the cubic Trajectory')
 
+    # Load the Step Trajectory
     elif (selection == 'n'):
         ser.reset_input_buffer()
 
@@ -237,6 +245,7 @@ while not has_quit:
         for i in ref:
             ser.write((str(i)+'\n').encode())
 
+    # Execute the Trajectory
     elif (selection == 'o'):
         ser.reset_input_buffer()    
 
@@ -249,7 +258,7 @@ while not has_quit:
         n_str = ser.read_until(b'\n')
         print('Complete Unpowering')
     
-    
+    # Unpower the motor
     elif (selection == 'q'):
         ser.reset_input_buffer()
 
@@ -257,13 +266,13 @@ while not has_quit:
         has_quit = True; # exit client
         # be sure to close the port
         ser.close()
-    
+    # Get the current mode
     elif (selection == 'r'):
         ser.reset_input_buffer()
 
         received_str = ser.read_until(b'\n').decode().strip() 
         print(received_str)
-
+    
     else:
         ser.reset_input_buffer()
 
