@@ -25,7 +25,7 @@ int main()
     ITEST_Current_Wave();
     // The str used to receive the info sent from the python
     char buffer[BUF_SIZE];
-    // There are two lights, green led and yellow led. Green led basically doesn't do something.
+    // There are two LED lights, green and yellow. Green led basically doesn't do something.
     //      I'm just too lazy to change that. Yellow led is the problem LED. When user type a char 
     //      with no matchin feacture. the yellow led would bright for 1 sec.
     NU32_LED1 = 1; // turn off the LEDs
