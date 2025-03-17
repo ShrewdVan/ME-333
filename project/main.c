@@ -101,7 +101,7 @@ int main()
                 // Receive the data
                 char m[50];
                 // The encoder have a scale of 4, divide the encoder count by 4 to get the real deg
-                float angle = (float)get_encoder_count()/4;
+                float angle = (float)get_encoder_count()*360/1336;
                 sprintf(m,"%.2f\r\n",angle);
                 NU32DIP_WriteUART1(m); // send encoder count to client
 
