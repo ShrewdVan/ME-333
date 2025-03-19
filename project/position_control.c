@@ -84,6 +84,8 @@ void __ISR(_TIMER_4_VECTOR, IPL5SOFT) Timer4ISR(void){
             Required_current_HOLD = (float)(Position_Kp * e + Position_Ki * E_accu_position + Position_Kd * E_dot);
 
             Track_count ++;
+
+            break;
         }
 
     }
