@@ -19,7 +19,7 @@ volatile int N = 0;
 
 volatile int Current_Encoder_Count = 0;
 static volatile int Required_encoder_count = 0;
-static volatile int Track_count;
+static volatile int Track_count = 0;
 //
 volatile int e = 0;
 volatile int E_dot = 0;
@@ -39,7 +39,7 @@ void __ISR(_TIMER_4_VECTOR, IPL5SOFT) Timer4ISR(void){
             Current_Encoder_Count = get_encoder_count();
 
             // Turn the required angle into the encoder count
-            Required_encoder_count = (int)(Required_angle * 4);
+            Required_encoder_count = (int)(Required_angle * 1336 / 360);
             // Calculate the error
             e = Required_encoder_count - Current_Encoder_Count;
             // Accumulate the integral error
@@ -74,9 +74,9 @@ void __ISR(_TIMER_4_VECTOR, IPL5SOFT) Timer4ISR(void){
             while(!get_encoder_flag()){;}
             set_encoder_flag(0);
             Current_Encoder_Count = get_encoder_count();
-            Actual_Track[Track_count] = (float)get_encoder_count()/4;
+            Actual_Track[Track_count] = (float)get_encoder_count()/1336*360;
 
-            Required_encoder_count = (int)(Required_angle * 4);
+            Required_encoder_count = (int)(Required_angle * 1336 / 360);
             e = Required_encoder_count - Current_Encoder_Count;
             E_accu_position += e;
             E_dot = e - e_priv;
